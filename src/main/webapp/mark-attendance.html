@@ -1,0 +1,385 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Management - Smart School PRO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #090d16;
+            color: #f8fafc;
+        }
+        .sidebar {
+            background: #111827;
+            min-height: 100vh;
+            border-right: 1px solid #1e293b;
+            padding: 24px 16px;
+        }
+        .nav-link-custom {
+            color: #94a3b8;
+            padding: 12px 16px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 6px;
+            transition: all 0.2s;
+        }
+        .nav-link-custom:hover, .nav-link-custom.active {
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.15), rgba(16, 185, 129, 0.15));
+            color: #38bdf8;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+        }
+        .glass-card {
+            background: #111827;
+            border: 1px solid #1e293b;
+            border-radius: 18px;
+            padding: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        .form-control-dark, .form-select-dark {
+            background-color: #090d16;
+            border: 1px solid #1e293b;
+            color: #ffffff;
+            border-radius: 10px;
+            padding: 10px 14px;
+        }
+        .form-control-dark:focus, .form-select-dark:focus {
+            background-color: #090d16;
+            color: #ffffff;
+            border-color: #0ea5e9;
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.2);
+        }
+        .table-dark-custom {
+            --bs-table-bg: transparent;
+            --bs-table-color: #e2e8f0;
+            --bs-table-border-color: #1e293b;
+        }
+        .mode-tab {
+            background: #090d16;
+            border: 1px solid #1e293b;
+            color: #94a3b8;
+            padding: 10px 22px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .mode-tab.active {
+            background: linear-gradient(135deg, #0ea5e9, #10b981);
+            color: #ffffff;
+            border-color: transparent;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar Navigation -->
+        <div class="col-lg-2 sidebar d-none d-lg-block">
+            <div class="d-flex align-items-center gap-2 mb-4 px-2">
+                <i class="fa-solid fa-school-flag text-info fs-4"></i>
+                <span class="fw-extrabold fs-5">SMART SCHOOL <span class="badge bg-info text-dark">PRO</span></span>
+            </div>
+            <nav>
+                <a href="index.html" class="nav-link-custom"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
+                <a href="add-student.html" class="nav-link-custom"><i class="fa-solid fa-user-graduate"></i> Students</a>
+                <a href="teachers.html" class="nav-link-custom"><i class="fa-solid fa-chalkboard-user"></i> Teachers</a>
+                <a href="mark-attendance.html" class="nav-link-custom active"><i class="fa-solid fa-clipboard-check"></i> Attendance</a>
+                <a href="qr-scanner.html" class="nav-link-custom"><i class="fa-solid fa-qrcode"></i> QR Gate Scan</a>
+                <a href="fees.html" class="nav-link-custom"><i class="fa-solid fa-indian-rupee-sign"></i> Fees ERP</a>
+                <a href="exams.html" class="nav-link-custom"><i class="fa-solid fa-file-signature"></i> Exams & Marks</a>
+                <a href="reports.html" class="nav-link-custom"><i class="fa-solid fa-bullhorn"></i> Reports & Alerts</a>
+                <a href="generate-idcards.html" class="nav-link-custom"><i class="fa-solid fa-id-card"></i> ID Cards</a>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-lg-10 p-4">
+            <!-- Header -->
+            <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
+                <div>
+                    <span class="badge bg-info bg-opacity-10 text-info border border-info border-opacity-25 mb-1">MODULE 04 • DUAL ATTENDANCE ENGINE</span>
+                    <h2 class="fw-bold mb-0">Daily Student & Staff Attendance</h2>
+                </div>
+                <div class="d-flex gap-2">
+                    <a href="qr-scanner.html" class="btn btn-info text-dark fw-bold rounded-3">
+                        <i class="fa-solid fa-qrcode me-1"></i> Open Live QR Gate
+                    </a>
+                    <a href="index.html" class="btn btn-outline-secondary rounded-3"><i class="fa-solid fa-arrow-left me-1"></i> Dashboard</a>
+                </div>
+            </div>
+
+            <!-- Dual Switcher Tabs -->
+            <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
+                <div class="d-flex gap-2">
+                    <button type="button" id="btnStudentTab" class="mode-tab active" onclick="switchAttendanceMode('student')">
+                        <i class="fa-solid fa-user-graduate me-2"></i>Student Attendance
+                    </button>
+                    <button type="button" id="btnStaffTab" class="mode-tab" onclick="switchAttendanceMode('staff')">
+                        <i class="fa-solid fa-chalkboard-user me-2"></i>Teacher / Staff Attendance
+                    </button>
+                </div>
+                <div class="d-flex gap-2 align-items-center">
+                    <input type="date" id="attDate" class="form-control form-control-dark" value="2026-11-12">
+                    <button class="btn btn-outline-success fw-bold" onclick="markAllPresent()">
+                        <i class="fa-solid fa-check-double me-1"></i> Mark All Present
+                    </button>
+                </div>
+            </div>
+
+            <!-- 1. STUDENT ATTENDANCE SECTION -->
+            <div id="studentAttendanceCard" class="glass-card">
+                <div class="row g-3 mb-4 align-items-end">
+                    <div class="col-md-3">
+                        <label class="form-label small text-secondary">Select Class</label>
+                        <select id="classFilter" class="form-select form-select-dark">
+                            <option>Class 10 - Section A</option>
+                            <option>Class 10 - Section B</option>
+                            <option>Class 9 - Section A</option>
+                            <option>Class 8 - Section A</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label small text-secondary">Quick Search Student</label>
+                        <input type="text" id="searchStudentAtt" onkeyup="filterTable('studentAttBody', 'searchStudentAtt')" class="form-control form-control-dark" placeholder="🔍 Search roll no or name...">
+                    </div>
+                    <div class="col-md-5 text-md-end">
+                        <span class="badge bg-success bg-opacity-25 text-success px-3 py-2 me-2">Present: <strong id="stuPresentCount">4</strong></span>
+                        <span class="badge bg-danger bg-opacity-25 text-danger px-3 py-2">Absent: <strong id="stuAbsentCount">1</strong></span>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-dark-custom align-middle">
+                        <thead>
+                            <tr class="text-secondary small">
+                                <th>Roll ID</th>
+                                <th>Student Name</th>
+                                <th>Parent Mobile</th>
+                                <th>Mode</th>
+                                <th>Attendance Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentAttBody">
+                            <tr>
+                                <td class="fw-bold text-info">STU-101</td>
+                                <td class="fw-bold">Kiran Varma</td>
+                                <td class="small text-secondary">+91 98480 11223</td>
+                                <td><span class="badge bg-primary bg-opacity-25 text-info">QR Gate (08:42 AM)</span></td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <input type="radio" class="btn-check att-radio" name="s101" id="s101p" value="P" checked onchange="recalcCounts()">
+                                        <label class="btn btn-outline-success btn-sm px-3" for="s101p">Present</label>
+                                        <input type="radio" class="btn-check att-radio" name="s101" id="s101a" value="A" onchange="recalcCounts()">
+                                        <label class="btn btn-outline-danger btn-sm px-3" for="s101a">Absent</label>
+                                        <input type="radio" class="btn-check att-radio" name="s101" id="s101l" value="L" onchange="recalcCounts()">
+                                        <label class="btn btn-outline-warning btn-sm px-3" for="s101l">Late</label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold text-info">STU-102</td>
+                                <td class="fw-bold">Sneha Nair</td>
+                                <td class="small text-secondary">+91 98480 44556</td>
+                                <td><span class="badge bg-primary bg-opacity-25 text-info">QR Gate (08:45 AM)</span></td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <input type="radio" class="btn-check att-radio" name="s102" id="s102p" value="P" checked onchange="recalcCounts()">
+                                        <label class="btn btn-outline-success btn-sm px-3" for="s102p">Present</label>
+                                        <input type="radio" class="btn-check att-radio" name="s102" id="s102a" value="A" onchange="recalcCounts()">
+                                        <label class="btn btn-outline-danger btn-sm px-3" for="s102a">Absent</label>
+                                        <input type="radio" class="btn-check att-radio" name="s102" id="s102l" value="L" onchange="recalcCounts()">
+                                        <label class="btn btn-outline-warning btn-sm px-3" for="s102l">Late</label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold text-info">STU-103</td>
+                                <td class="fw-bold">Rahul Teja</td>
+                                <td class="small text-secondary">+91 98480 77889</td>
+                                <td><span class="badge bg-secondary bg-opacity-25 text-light">Manual Entry</span></td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <input type="radio" class="btn-check att-radio" name="s103" id="s103p" value="P" onchange="recalcCounts()">
+                                        <label class="btn btn-outline-success btn-sm px-3" for="s103p">Present</label>
+                                        <input type="radio" class="btn-check att-radio" name="s103" id="s103a" value="A" checked onchange="recalcCounts()">
+                                        <label class="btn btn-outline-danger btn-sm px-3" for="s103a">Absent</label>
+                                        <input type="radio" class="btn-check att-radio" name="s103" id="s103l" value="L" onchange="recalcCounts()">
+                                        <label class="btn btn-outline-warning btn-sm px-3" for="s103l">Late</label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold text-info">STU-104</td>
+                                <td class="fw-bold">Aarav Reddy</td>
+                                <td class="small text-secondary">+91 98480 99001</td>
+                                <td><span class="badge bg-primary bg-opacity-25 text-info">QR Gate (08:49 AM)</span></td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <input type="radio" class="btn-check att-radio" name="s104" id="s104p" value="P" checked onchange="recalcCounts()">
+                                        <label class="btn btn-outline-success btn-sm px-3" for="s104p">Present</label>
+                                        <input type="radio" class="btn-check att-radio" name="s104" id="s104a" value="A" onchange="recalcCounts()">
+                                        <label class="btn btn-outline-danger btn-sm px-3" for="s104a">Absent</label>
+                                        <input type="radio" class="btn-check att-radio" name="s104" id="s104l" value="L" onchange="recalcCounts()">
+                                        <label class="btn btn-outline-warning btn-sm px-3" for="s104l">Late</label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold text-info">STU-105</td>
+                                <td class="fw-bold">Charan Sai</td>
+                                <td class="small text-secondary">+91 98480 22334</td>
+                                <td><span class="badge bg-primary bg-opacity-25 text-info">QR Gate (08:51 AM)</span></td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <input type="radio" class="btn-check att-radio" name="s105" id="s105p" value="P" checked onchange="recalcCounts()">
+                                        <label class="btn btn-outline-success btn-sm px-3" for="s105p">Present</label>
+                                        <input type="radio" class="btn-check att-radio" name="s105" id="s105a" value="A" onchange="recalcCounts()">
+                                        <label class="btn btn-outline-danger btn-sm px-3" for="s105a">Absent</label>
+                                        <input type="radio" class="btn-check att-radio" name="s105" id="s105l" value="L" onchange="recalcCounts()">
+                                        <label class="btn btn-outline-warning btn-sm px-3" for="s105l">Late</label>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="d-flex flex-wrap justify-content-end gap-3 mt-4 pt-3 border-top border-secondary border-opacity-25">
+                    <button class="btn btn-warning text-dark fw-bold px-4" onclick="alert('📲 Fast2SMS Absentee Alerts sent to parents of all Absent students!')">
+                        <i class="fa-solid fa-comment-sms me-2"></i>Send Absentee SMS Alerts
+                    </button>
+                    <button class="btn btn-success fw-bold px-4" onclick="alert('✅ Student Daily Attendance Saved to MySQL Database!')">
+                        <i class="fa-solid fa-floppy-disk me-2"></i>Save Attendance Register
+                    </button>
+                </div>
+            </div>
+
+            <!-- 2. TEACHER / STAFF ATTENDANCE SECTION -->
+            <div id="staffAttendanceCard" class="glass-card d-none">
+                <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
+                    <h5 class="fw-bold mb-0"><i class="fa-solid fa-chalkboard-user text-info me-2"></i>Daily Faculty & Staff Check-In Log</h5>
+                    <input type="text" id="searchStaffAtt" onkeyup="filterTable('staffAttBody', 'searchStaffAtt')" class="form-control form-control-dark w-auto" placeholder="🔍 Search teacher...">
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-dark-custom align-middle">
+                        <thead>
+                            <tr class="text-secondary small">
+                                <th>Staff ID</th>
+                                <th>Faculty Name</th>
+                                <th>Department</th>
+                                <th>Check-In Time</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="staffAttBody">
+                            <tr>
+                                <td class="fw-bold text-info">TCH-101</td>
+                                <td class="fw-bold">Srinivas Rao</td>
+                                <td>Mathematics</td>
+                                <td class="small text-success">08:30 AM (Biometric/QR)</td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <input type="radio" class="btn-check" name="t101" id="t101p" checked>
+                                        <label class="btn btn-outline-success btn-sm px-3" for="t101p">Present</label>
+                                        <input type="radio" class="btn-check" name="t101" id="t101a">
+                                        <label class="btn btn-outline-danger btn-sm px-3" for="t101a">Leave / Absent</label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold text-info">TCH-102</td>
+                                <td class="fw-bold">Anitha Devi</td>
+                                <td>Computer Science</td>
+                                <td class="small text-success">08:35 AM (Biometric/QR)</td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <input type="radio" class="btn-check" name="t102" id="t102p" checked>
+                                        <label class="btn btn-outline-success btn-sm px-3" for="t102p">Present</label>
+                                        <input type="radio" class="btn-check" name="t102" id="t102a">
+                                        <label class="btn btn-outline-danger btn-sm px-3" for="t102a">Leave / Absent</label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold text-info">TCH-103</td>
+                                <td class="fw-bold">Karthik Sharma</td>
+                                <td>Physics & Science</td>
+                                <td class="small text-warning">09:05 AM (Late Entry)</td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <input type="radio" class="btn-check" name="t103" id="t103p" checked>
+                                        <label class="btn btn-outline-success btn-sm px-3" for="t103p">Present</label>
+                                        <input type="radio" class="btn-check" name="t103" id="t103a">
+                                        <label class="btn btn-outline-danger btn-sm px-3" for="t103a">Leave / Absent</label>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="d-flex justify-content-end mt-4 pt-3 border-top border-secondary border-opacity-25">
+                    <button class="btn btn-success fw-bold px-4" onclick="alert('✅ Faculty & Staff Daily Attendance Saved!')">
+                        <i class="fa-solid fa-floppy-disk me-2"></i>Save Staff Attendance
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    function switchAttendanceMode(mode) {
+        const stuCard = document.getElementById('studentAttendanceCard');
+        const staffCard = document.getElementById('staffAttendanceCard');
+        const btnStu = document.getElementById('btnStudentTab');
+        const btnStaff = document.getElementById('btnStaffTab');
+
+        if (mode === 'student') {
+            stuCard.classList.remove('d-none');
+            staffCard.classList.add('d-none');
+            btnStu.classList.add('active');
+            btnStaff.classList.remove('active');
+        } else {
+            stuCard.classList.add('d-none');
+            staffCard.classList.remove('d-none');
+            btnStu.classList.remove('active');
+            btnStaff.classList.add('active');
+        }
+    }
+
+    function markAllPresent() {
+        document.querySelectorAll('input[type="radio"][id$="p"]').forEach(r => r.checked = true);
+        recalcCounts();
+    }
+
+    function recalcCounts() {
+        let p = 0, a = 0;
+        document.querySelectorAll('#studentAttBody input[type="radio"]:checked').forEach(r => {
+            if (r.value === 'P' || r.value === 'L') p++;
+            else if (r.value === 'A') a++;
+        });
+        document.getElementById('stuPresentCount').textContent = p;
+        document.getElementById('stuAbsentCount').textContent = a;
+    }
+
+    function filterTable(tbodyId, inputId) {
+        const q = document.getElementById(inputId).value.toLowerCase();
+        document.querySelectorAll(`#${tbodyId} tr`).forEach(row => {
+            row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
+        });
+    }
+</script>
+</body>
+</html>

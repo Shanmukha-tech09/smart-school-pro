@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Student - Smart School PRO</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        :root[data-theme="dark"] {
+            --bg-body: #0b0f19;
+            --bg-card: #151c2c;
+            --bg-sidebar: #0e1320;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #1e293b;
+            --accent-purple: #8b5cf6;
+            --accent-blue: #3b82f6;
+        }
+
+        :root[data-theme="light"] {
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-sidebar: #0f172a;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --accent-purple: #7c3aed;
+            --accent-blue: #2563eb;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--text-main);
+            transition: all 0.3s ease;
+        }
+
+        .sidebar {
+            min-height: 100vh;
+            background: var(--bg-sidebar);
+            border-right: 1px solid var(--border-color);
+            padding: 20px;
+        }
+
+        .brand-box {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(59, 130, 246, 0.2) 100%);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 14px;
+            padding: 14px;
+            text-align: center;
+        }
+
+        .nav-link-custom {
+            color: #94a3b8;
+            text-decoration: none;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            border-radius: 12px;
+            margin-bottom: 8px;
+            font-weight: 600;
+            transition: all 0.25s ease;
+        }
+
+        .nav-link-custom:hover, .nav-link-custom.active {
+            background: linear-gradient(90deg, #7c3aed 0%, #2563eb 100%);
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4);
+        }
+
+        .custom-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            padding: 32px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        .form-control, .form-select {
+            background-color: var(--bg-body);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            border-radius: 12px;
+            padding: 12px 16px;
+        }
+
+        .form-control:focus, .form-select:focus {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.25);
+        }
+
+        .btn-neon {
+            background: linear-gradient(135deg, #7c3aed 0%, #2563eb 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 14px 28px;
+            font-weight: 700;
+            border: none;
+            box-shadow: 0 6px 20px rgba(124, 58, 237, 0.4);
+            transition: all 0.25s ease;
+        }
+
+        .btn-neon:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(124, 58, 237, 0.6);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar Navigation -->
+        <div class="col-md-3 col-lg-2 sidebar d-none d-md-block">
+            <div class="brand-box mb-4">
+                <h5 class="fw-bold text-white mb-0">SMART SCHOOL <span class="badge bg-primary fs-6">PRO</span></h5>
+                <small class="text-slate-400">Attendance Suite</small>
+            </div>
+
+            <a href="index.html" class="nav-link-custom"><i class="me-3">📊</i> Dashboard</a>
+            <a href="add-student.html" class="nav-link-custom active"><i class="me-3">➕</i> Add Student</a>
+            <a href="mark-attendance.html" class="nav-link-custom"><i class="me-3">📋</i> Attendance</a>
+            <a href="qr-scanner.html" class="nav-link-custom"><i class="me-3">📷</i> Smart QR Scanner</a>
+            <a href="reports.html" class="nav-link-custom"><i class="me-3">📈</i> Reports</a>
+            <hr class="border-secondary opacity-25 my-4">
+            <a href="login.html" class="nav-link-custom text-danger"><i class="me-3">🚪</i> Logout</a>
+        </div>
+
+        <!-- Main Form Content -->
+        <div class="col-md-9 col-lg-10 p-4">
+            
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h2 class="fw-extrabold display-6 fw-bold mb-1">Register New Student</h2>
+                    <p class="text-muted mb-0">Enter student details to add to database and generate QR ID card.</p>
+                </div>
+                <a href="index.html" class="btn btn-outline-secondary rounded-3 px-4 fw-bold">← Dashboard</a>
+            </div>
+
+            <div class="custom-card col-md-8 mx-auto">
+                <form action="AddStudentServlet" method="POST">
+                    
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Student Roll Number / Unique ID</label>
+                        <input type="text" class="form-control form-control-lg" name="rollNumber" placeholder="e.g. STU101" required>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Student Full Name</label>
+                        <input type="text" class="form-control form-control-lg" name="name" placeholder="Enter full name" required>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Class / Grade</label>
+                            <select class="form-select form-select-lg" name="className" required>
+                                <option value="" selected disabled>Select Class</option>
+                                <option value="Class 9">Class 9</option>
+                                <option value="Class 10">Class 10</option>
+                                <option value="Class 11">Class 11</option>
+                                <option value="Class 12">Class 12</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Section</label>
+                            <select class="form-select form-select-lg" name="section" required>
+                                <option value="" selected disabled>Select Section</option>
+                                <option value="A">Section A</option>
+                                <option value="B">Section B</option>
+                                <option value="C">Section C</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="d-grid mt-4">
+                        <button type="submit" class="btn btn-neon btn-lg fs-5">✓ Save Student & Generate QR</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html> 

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart QR & ID Scanner - Smart School PRO</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        :root[data-theme="dark"] {
+            --bg-body: #0b0f19;
+            --bg-card: #151c2c;
+            --bg-sidebar: #0e1320;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #1e293b;
+            --accent-purple: #8b5cf6;
+            --accent-blue: #3b82f6;
+            --accent-emerald: #10b981;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .sidebar {
+            min-height: 100vh;
+            background: var(--bg-sidebar);
+            border-right: 1px solid var(--border-color);
+            padding: 20px;
+        }
+
+        .brand-box {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(59, 130, 246, 0.2) 100%);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 14px;
+            padding: 14px;
+            text-align: center;
+        }
+
+        .nav-link-custom {
+            color: #94a3b8;
+            text-decoration: none;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            border-radius: 12px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .nav-link-custom:hover, .nav-link-custom.active {
+            background: linear-gradient(90deg, #7c3aed 0%, #2563eb 100%);
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4);
+        }
+
+        .custom-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            padding: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        .qr-display-box {
+            width: 100%;
+            height: 240px;
+            background: #000;
+            border-radius: 14px;
+            border: 2px dashed var(--accent-purple);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .form-control {
+            background-color: var(--bg-body);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            border-radius: 12px;
+            padding: 12px 16px;
+        }
+
+        .form-control:focus {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.25);
+        }
+
+        .btn-neon {
+            background: linear-gradient(135deg, #7c3aed 0%, #2563eb 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 12px 24px;
+            font-weight: 700;
+            border: none;
+            box-shadow: 0 6px 20px rgba(124, 58, 237, 0.4);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar Navigation -->
+        <div class="col-md-3 col-lg-2 sidebar d-none d-md-block">
+            <div class="brand-box mb-4">
+                <h5 class="fw-bold text-white mb-0"><i class="fa-solid fa-graduation-cap text-info me-2"></i> SMART SCHOOL <span class="badge bg-primary fs-6">PRO</span></h5>
+                <small class="text-slate-400">Attendance Suite</small>
+            </div>
+
+            <a href="index.html" class="nav-link-custom"><i class="fa-solid fa-chart-line me-3"></i> Dashboard</a>
+            <a href="add-student.html" class="nav-link-custom"><i class="fa-solid fa-user-plus me-3"></i> Add Student</a>
+            <a href="mark-attendance.html" class="nav-link-custom"><i class="fa-solid fa-calendar-check me-3"></i> Attendance</a>
+            <a href="qr-scanner.html" class="nav-link-custom active"><i class="fa-solid fa-qrcode me-3"></i> Smart QR Scanner</a>
+            <a href="reports.html" class="nav-link-custom"><i class="fa-solid fa-chart-pie me-3"></i> Analytics Reports</a>
+            <hr class="border-secondary opacity-25 my-4">
+            <a href="login.html" class="nav-link-custom text-danger"><i class="fa-solid fa-right-from-bracket me-3"></i> Logout</a>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="col-md-9 col-lg-10 p-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <span class="badge bg-purple text-light border border-secondary mb-2">🤖 AI SMART SCANNER</span>
+                    <h2 class="fw-bold">Instant QR & ID Card Attendance Scanner</h2>
+                    <p class="text-muted mb-0">Scan Student ID QR or enter roll number to log instant attendance and trigger SMS alerts.</p>
+                </div>
+                <a href="index.html" class="btn btn-outline-secondary rounded-3 px-4 fw-bold">← Dashboard</a>
+            </div>
+
+            <div class="row g-4">
+                <!-- QR Generator & Input Column -->
+                <div class="col-md-6">
+                    <div class="custom-card text-center">
+                        <h5 class="fw-bold mb-3"><i class="fa-solid fa-qrcode text-primary me-2"></i> Live QR Reader & Generator</h5>
+                        
+                        <!-- Dynamic Live QR Image Container -->
+                        <div class="qr-display-box mb-3">
+                            <img id="qrImage" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=STU101" alt="Student QR Code" class="rounded-3 p-2 bg-white" width="140" height="140">
+                            <small class="text-muted mt-2">Dynamic Student QR Preview</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <input type="text" id="rollInput" class="form-control text-center fw-bold fs-5" value="STU101" placeholder="Enter Student Roll No (e.g. STU101)">
+                        </div>
+
+                        <button onclick="processScan()" class="btn btn-neon w-100 py-3"><i class="fa-solid fa-bolt me-2"></i> Process Instant QR Scan</button>
+                    </div>
+                </div>
+
+                <!-- Live Attendance Status Column -->
+                <div class="col-md-6">
+                    <div class="custom-card">
+                        <h5 class="fw-bold mb-3"><i class="fa-solid fa-clipboard-check text-success me-2"></i> Live Attendance & SMS Status</h5>
+                        
+                        <div id="statusBox" class="p-4 bg-dark rounded-3 border border-secondary">
+                            <span class="badge bg-success fs-6 px-3 py-2 mb-3">✅ ATTENDANCE RECORDED</span>
+                            <h3 id="studentName" class="fw-bold text-white mb-1">STU101 - Shanmukha C.</h3>
+                            <p class="text-secondary mb-3">Class 10 - Section A</p>
+                            
+                            <div class="p-3 bg-secondary bg-opacity-25 rounded-3 border border-secondary mb-3">
+                                <small class="text-info d-block fw-bold mb-1"><i class="fa-solid fa-paper-plane me-2"></i> Instant Parent SMS Dispatch Log:</small>
+                                <span id="smsMsg" class="small text-light">"SmartSchool PRO: Your ward STU101 has entered school."</span>
+                            </div>
+                            
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="small text-secondary">Verification Engine: <strong class="text-success">Passed</strong></span>
+                                <span class="small text-secondary">Timestamp: <strong id="timeVal" class="text-info"></strong></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById("timeVal").innerText = new Date().toLocaleTimeString();
+
+    function processScan() {
+        const rollVal = document.getElementById("rollInput").value.trim() || "STU101";
+        
+        // Dynamic QR API Update
+        document.getElementById("qrImage").src = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + rollVal;
+        
+        // Status & SMS Text Update
+        document.getElementById("studentName").innerText = rollVal + " - Shanmukha C.";
+        document.getElementById("smsMsg").innerText = '"SmartSchool PRO: Your ward ' + rollVal + ' has entered school."';
+        document.getElementById("timeVal").innerText = new Date().toLocaleTimeString();
+        
+        alert("✅ QR Code Scanned (" + rollVal + ")! Attendance & Parent SMS Alert Recorded Successfully.");
+    }
+</script>
+</body>
+</html>

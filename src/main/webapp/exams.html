@@ -1,0 +1,374 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examination & Report Cards - Smart School PRO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #090d16;
+            color: #f8fafc;
+        }
+        .sidebar {
+            background: #111827;
+            min-height: 100vh;
+            border-right: 1px solid #1e293b;
+            padding: 24px 16px;
+        }
+        .nav-link-custom {
+            color: #94a3b8;
+            padding: 12px 16px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 6px;
+            transition: all 0.2s;
+        }
+        .nav-link-custom:hover, .nav-link-custom.active {
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.15), rgba(16, 185, 129, 0.15));
+            color: #38bdf8;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+        }
+        .glass-card {
+            background: #111827;
+            border: 1px solid #1e293b;
+            border-radius: 18px;
+            padding: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        .form-control-dark, .form-select-dark {
+            background-color: #090d16;
+            border: 1px solid #1e293b;
+            color: #ffffff;
+            border-radius: 10px;
+            padding: 10px 14px;
+        }
+        .form-control-dark:focus, .form-select-dark:focus {
+            background-color: #090d16;
+            color: #ffffff;
+            border-color: #38bdf8;
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+        }
+        .table-dark-custom {
+            --bs-table-bg: transparent;
+            --bs-table-color: #e2e8f0;
+            --bs-table-border-color: #1e293b;
+        }
+        .grade-badge {
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.35);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 800;
+        }
+        @media print {
+            body * { visibility: hidden; }
+            #printableReportCard, #printableReportCard * { visibility: visible; }
+            #printableReportCard {
+                position: fixed;
+                left: 0;
+                top: 0;
+                width: 100%;
+                background: #ffffff !important;
+                color: #000000 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar Navigation -->
+        <div class="col-lg-2 sidebar d-none d-lg-block">
+            <div class="d-flex align-items-center gap-2 mb-4 px-2">
+                <i class="fa-solid fa-school-flag text-info fs-4"></i>
+                <span class="fw-extrabold fs-5">SMART SCHOOL <span class="badge bg-info text-dark">PRO</span></span>
+            </div>
+            <nav>
+                <a href="index.html" class="nav-link-custom"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
+                <a href="add-student.html" class="nav-link-custom"><i class="fa-solid fa-user-graduate"></i> Students</a>
+                <a href="teachers.html" class="nav-link-custom"><i class="fa-solid fa-chalkboard-user"></i> Teachers</a>
+                <a href="mark-attendance.html" class="nav-link-custom"><i class="fa-solid fa-clipboard-check"></i> Attendance</a>
+                <a href="qr-scanner.html" class="nav-link-custom"><i class="fa-solid fa-qrcode"></i> QR Gate Scan</a>
+                <a href="fees.html" class="nav-link-custom"><i class="fa-solid fa-indian-rupee-sign"></i> Fees ERP</a>
+                <a href="exams.html" class="nav-link-custom active"><i class="fa-solid fa-file-signature"></i> Exams & Marks</a>
+                <a href="reports.html" class="nav-link-custom"><i class="fa-solid fa-bullhorn"></i> Reports & Alerts</a>
+                <a href="generate-idcards.html" class="nav-link-custom"><i class="fa-solid fa-id-card"></i> ID Cards</a>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-lg-10 p-4">
+            <!-- Header -->
+            <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
+                <div>
+                    <span class="badge bg-info bg-opacity-10 text-info border border-info border-opacity-25 mb-1">MODULE 06 • ACADEMIC EVALUATION</span>
+                    <h2 class="fw-bold mb-0">Examination Marks & Progress Report Cards</h2>
+                </div>
+                <div class="d-flex gap-2">
+                    <button class="btn btn-success fw-bold rounded-3" onclick="publishResultsSMS()">
+                        <i class="fa-solid fa-paper-plane me-1"></i> Publish Results via SMS/Email
+                    </button>
+                    <a href="index.html" class="btn btn-outline-secondary rounded-3"><i class="fa-solid fa-arrow-left me-1"></i> Dashboard</a>
+                </div>
+            </div>
+
+            <!-- Stats Row -->
+            <div class="row g-3 mb-4">
+                <div class="col-md-3">
+                    <div class="glass-card py-3">
+                        <div class="text-secondary small fw-semibold">Active Exam Term</div>
+                        <div class="fs-4 fw-extrabold text-info">Mid-Term 2026</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="glass-card py-3">
+                        <div class="text-secondary small fw-semibold">Overall Pass Rate</div>
+                        <div class="fs-3 fw-extrabold text-success">96.4%</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="glass-card py-3">
+                        <div class="text-secondary small fw-semibold">School Topper Score</div>
+                        <div class="fs-3 fw-extrabold text-warning">488 / 500</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="glass-card py-3">
+                        <div class="text-secondary small fw-semibold">Report Cards Issued</div>
+                        <div class="fs-3 fw-extrabold text-white" id="cardsIssued">1,180</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <!-- Left: Marks Entry Form -->
+                <div class="col-lg-4">
+                    <div class="glass-card">
+                        <h5 class="fw-bold mb-3"><i class="fa-solid fa-pen-to-square text-info me-2"></i>Enter Student Marks</h5>
+                        <form id="examForm" onsubmit="saveMarks(event)">
+                            <div class="mb-2">
+                                <label class="form-label small text-secondary">Student Roll & Name</label>
+                                <input type="text" id="eStudent" class="form-control form-control-dark" placeholder="e.g. STU-105 - Charan Sai" required>
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label small text-secondary">Class & Exam</label>
+                                <input type="text" id="eClass" class="form-control form-control-dark" value="Class 10 - A (Mid-Term)" required>
+                            </div>
+                            <div class="row g-2 mb-2">
+                                <div class="col-6">
+                                    <label class="form-label small text-secondary">Mathematics (100)</label>
+                                    <input type="number" id="mMath" max="100" min="0" class="form-control form-control-dark" value="94" required>
+                                </div>
+                                <div class="col-6">
+                                    <label class="form-label small text-secondary">Science (100)</label>
+                                    <input type="number" id="mSci" max="100" min="0" class="form-control form-control-dark" value="89" required>
+                                </div>
+                            </div>
+                            <div class="row g-2 mb-2">
+                                <div class="col-6">
+                                    <label class="form-label small text-secondary">English (100)</label>
+                                    <input type="number" id="mEng" max="100" min="0" class="form-control form-control-dark" value="91" required>
+                                </div>
+                                <div class="col-6">
+                                    <label class="form-label small text-secondary">Social (100)</label>
+                                    <input type="number" id="mSoc" max="100" min="0" class="form-control form-control-dark" value="87" required>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label small text-secondary">Computer / IT (100)</label>
+                                <input type="number" id="mComp" max="100" min="0" class="form-control form-control-dark" value="97" required>
+                            </div>
+                            <button type="submit" class="btn btn-info text-dark fw-bold w-100 py-2 rounded-3">
+                                <i class="fa-solid fa-calculator me-1"></i> Compute Grade & Save Card
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Right: Results & Report Cards Roster -->
+                <div class="col-lg-8">
+                    <div class="glass-card">
+                        <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
+                            <h5 class="fw-bold mb-0"><i class="fa-solid fa-award text-warning me-2"></i>Exam Results & Progress Cards</h5>
+                            <input type="text" id="searchExam" onkeyup="filterExams()" class="form-control form-control-dark w-auto" placeholder="🔍 Search student or grade...">
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-dark-custom align-middle">
+                                <thead>
+                                    <tr class="text-secondary small">
+                                        <th>Student</th>
+                                        <th>Class / Term</th>
+                                        <th>Total (500)</th>
+                                        <th>Percentage</th>
+                                        <th>Grade</th>
+                                        <th>Report Card</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="examTableBody">
+                                    <tr>
+                                        <td class="fw-bold">Kiran Varma (STU-101)</td>
+                                        <td class="small text-secondary">Class 10 - A • Mid-Term</td>
+                                        <td class="fw-bold text-white">478 / 500</td>
+                                        <td class="text-info fw-bold">95.6%</td>
+                                        <td><span class="grade-badge">A+ (Distinction)</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-info" onclick="openReportCard('Kiran Varma (STU-101)', 'Class 10 - A', 98, 95, 92, 94, 99)">
+                                                <i class="fa-solid fa-file-pdf"></i> View Card
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold">Sneha Nair (STU-102)</td>
+                                        <td class="small text-secondary">Class 9 - B • Mid-Term</td>
+                                        <td class="fw-bold text-white">442 / 500</td>
+                                        <td class="text-info fw-bold">88.4%</td>
+                                        <td><span class="grade-badge">A (First Class)</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-info" onclick="openReportCard('Sneha Nair (STU-102)', 'Class 9 - B', 90, 86, 89, 85, 92)">
+                                                <i class="fa-solid fa-file-pdf"></i> View Card
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Printable Progress Report Card Modal -->
+<div class="modal fade" id="reportCardModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content bg-white text-dark rounded-4 p-4" id="printableReportCard">
+            <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-3">
+                <div>
+                    <h3 class="fw-extrabold text-primary mb-0">SMART SCHOOL PRO</h3>
+                    <div class="small text-muted">Official Student Academic Progress Report Card • 2026–27</div>
+                </div>
+                <span class="badge bg-success fs-6 px-3 py-2" id="rcGradeBadge">GRADE: A+</span>
+            </div>
+
+            <div class="row small mb-3 bg-light p-3 rounded-3">
+                <div class="col-md-6"><strong>Student Name & ID:</strong> <span id="rcName">Kiran Varma</span></div>
+                <div class="col-md-6 text-md-end"><strong>Class & Term:</strong> <span id="rcClass">Class 10 - A</span></div>
+                <div class="col-md-6 mt-1"><strong>Attendance Rate:</strong> <span class="text-success fw-bold">96.8% (Excellent)</span></div>
+                <div class="col-md-6 text-md-end mt-1"><strong>Result Status:</strong> <span class="text-success fw-bold">PASSED WITH DISTINCTION</span></div>
+            </div>
+
+            <table class="table table-bordered small mb-3">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Subject</th>
+                        <th class="text-center">Max Marks</th>
+                        <th class="text-center">Marks Obtained</th>
+                        <th class="text-center">Grade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Mathematics</td><td class="text-center">100</td><td class="text-center fw-bold" id="rcMath">98</td><td class="text-center">A+</td></tr>
+                    <tr><td>Science & Physics</td><td class="text-center">100</td><td class="text-center fw-bold" id="rcSci">95</td><td class="text-center">A+</td></tr>
+                    <tr><td>English Literature</td><td class="text-center">100</td><td class="text-center fw-bold" id="rcEng">92</td><td class="text-center">A+</td></tr>
+                    <tr><td>Social Studies</td><td class="text-center">100</td><td class="text-center fw-bold" id="rcSoc">94</td><td class="text-center">A+</td></tr>
+                    <tr><td>Computer Science / IT</td><td class="text-center">100</td><td class="text-center fw-bold" id="rcComp">99</td><td class="text-center">A+</td></tr>
+                    <tr class="table-secondary fw-bold">
+                        <td>GRAND TOTAL</td>
+                        <td class="text-center">500</td>
+                        <td class="text-center" id="rcTotal">478</td>
+                        <td class="text-center" id="rcPercent">95.6%</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="d-flex justify-content-between align-items-center mt-4 pt-2 border-top">
+                <div class="small text-muted">Principal Signature: <em>Digitally Verified ✓</em></div>
+                <button class="btn btn-primary px-4" onclick="window.print()">
+                    <i class="fa-solid fa-print me-1"></i> Print / Save Progress Card PDF
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    const rcModal = new bootstrap.Modal(document.getElementById('reportCardModal'));
+
+    function saveMarks(e) {
+        e.preventDefault();
+        const student = document.getElementById('eStudent').value;
+        const cls = document.getElementById('eClass').value;
+        const math = parseInt(document.getElementById('mMath').value);
+        const sci = parseInt(document.getElementById('mSci').value);
+        const eng = parseInt(document.getElementById('mEng').value);
+        const soc = parseInt(document.getElementById('mSoc').value);
+        const comp = parseInt(document.getElementById('mComp').value);
+
+        const total = math + sci + eng + soc + comp;
+        const pct = ((total / 500) * 100).toFixed(1);
+        let grade = pct >= 90 ? "A+ (Distinction)" : pct >= 75 ? "A (First Class)" : pct >= 60 ? "B (Second Class)" : "C (Pass)";
+
+        const tbody = document.getElementById('examTableBody');
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td class="fw-bold">${student}</td>
+            <td class="small text-secondary">${cls}</td>
+            <td class="fw-bold text-white">${total} / 500</td>
+            <td class="text-info fw-bold">${pct}%</td>
+            <td><span class="grade-badge">${grade}</span></td>
+            <td>
+                <button class="btn btn-sm btn-outline-info" onclick="openReportCard('${student}', '${cls}', ${math}, ${sci}, ${eng}, ${soc}, ${comp})">
+                    <i class="fa-solid fa-file-pdf"></i> View Card
+                </button>
+            </td>
+        `;
+        tbody.prepend(row);
+        openReportCard(student, cls, math, sci, eng, soc, comp);
+        document.getElementById('examForm').reset();
+    }
+
+    function openReportCard(name, cls, math, sci, eng, soc, comp) {
+        const total = math + sci + eng + soc + comp;
+        const pct = ((total / 500) * 100).toFixed(1);
+        const gradeLetter = pct >= 90 ? "A+" : pct >= 75 ? "A" : pct >= 60 ? "B" : "C";
+
+        document.getElementById('rcName').textContent = name;
+        document.getElementById('rcClass').textContent = cls;
+        document.getElementById('rcMath').textContent = math;
+        document.getElementById('rcSci').textContent = sci;
+        document.getElementById('rcEng').textContent = eng;
+        document.getElementById('rcSoc').textContent = soc;
+        document.getElementById('rcComp').textContent = comp;
+        document.getElementById('rcTotal').textContent = total;
+        document.getElementById('rcPercent').textContent = pct + "%";
+        document.getElementById('rcGradeBadge').textContent = "GRADE: " + gradeLetter;
+        rcModal.show();
+    }
+
+    function publishResultsSMS() {
+        alert("📲 Exam Progress Report links sent to all parents via Fast2SMS & SMTP Email!");
+    }
+
+    function filterExams() {
+        const input = document.getElementById('searchExam').value.toLowerCase();
+        document.querySelectorAll('#examTableBody tr').forEach(row => {
+            row.style.display = row.textContent.toLowerCase().includes(input) ? '' : 'none';
+        });
+    }
+</script>
+</body>
+</html>

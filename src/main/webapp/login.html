@@ -1,0 +1,669 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart School PRO - Intelligent Campus ERP & Portal</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background-color: #f8fafc;
+        }
+
+        /* Original Midnight Slate + Cyan Mesh Hero */
+        .hero-section {
+            background: radial-gradient(circle at 80% 20%, rgba(14, 165, 233, 0.18) 0%, transparent 45%),
+                        radial-gradient(circle at 15% 70%, rgba(16, 185, 129, 0.14) 0%, transparent 45%),
+                        linear-gradient(160deg, #090d16 0%, #111827 55%, #162033 100%);
+            color: #ffffff;
+            position: relative;
+            padding-top: 32px;
+            padding-bottom: 165px;
+            overflow: hidden;
+        }
+
+        /* Subtle Grid Overlay */
+        .hero-grid-bg {
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+        }
+
+        /* Top Mini Navbar */
+        .top-nav {
+            position: relative;
+            z-index: 5;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 55px;
+        }
+
+        .brand-logo {
+            font-weight: 800;
+            font-size: 1.35rem;
+            color: #ffffff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Smooth Floating Keyframes */
+        @keyframes floatCard1 {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-14px); }
+        }
+
+        @keyframes floatCard2 {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(12px); }
+        }
+
+        @keyframes pulseRing {
+            0% { transform: scale(0.95); opacity: 0.7; }
+            70% { transform: scale(1.15); opacity: 0; }
+            100% { transform: scale(0.95); opacity: 0; }
+        }
+
+        /* Original Floating Live Campus Alerts */
+        .float-alert-badge {
+            position: absolute;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            border-radius: 14px;
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            z-index: 4;
+        }
+
+        .badge-pos-1 {
+            top: 15px;
+            right: 8%;
+            animation: floatCard1 4.2s ease-in-out infinite;
+        }
+
+        .badge-pos-2 {
+            bottom: 35px;
+            left: 2%;
+            border-color: rgba(16, 185, 129, 0.45);
+            animation: floatCard2 4.8s ease-in-out infinite;
+        }
+
+        .badge-pos-3 {
+            bottom: 10px;
+            right: 4%;
+            border-color: rgba(245, 158, 11, 0.45);
+            animation: floatCard1 5.2s ease-in-out infinite;
+        }
+
+        /* Electric Cyan-Emerald Gradient Text */
+        .gradient-text {
+            background: linear-gradient(90deg, #38bdf8 0%, #34d399 50%, #a3e635 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        /* Glowing Highlight Underline */
+        .underline-wrap {
+            position: relative;
+            display: inline-block;
+        }
+
+        .emerald-underline {
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 100%;
+            height: 8px;
+        }
+
+        /* Primary Pill Action Button */
+        .cta-pill {
+            background: linear-gradient(135deg, #0ea5e9 0%, #10b981 100%);
+            color: #ffffff;
+            border-radius: 16px;
+            padding: 16px 32px;
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            text-decoration: none;
+            position: relative;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 12px 30px rgba(14, 165, 233, 0.35);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .cta-pill:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 18px 35px rgba(16, 185, 129, 0.45);
+            color: #ffffff;
+        }
+
+        /* Custom Isometric Smart ID & Campus Illustration */
+        .visual-stage {
+            position: relative;
+            animation: floatCard1 5s ease-in-out infinite;
+            text-align: center;
+        }
+
+        /* Bottom Smooth Angled Wave */
+        .wave-divider {
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+        }
+
+        .wave-divider svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 95px;
+        }
+
+        /* Bottom Section */
+        .why-section {
+            padding: 40px 20px 80px;
+            background: #f8fafc;
+            color: #0f172a;
+            text-align: center;
+        }
+
+        .feature-pill-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 28px;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .feature-pill-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 35px rgba(15, 23, 42, 0.08);
+            border-color: #0ea5e9;
+        }
+
+        /* Glass Login Modal */
+        .modal-content-dark {
+            background: #111827;
+            color: #f8fafc;
+            border: 1px solid #1e293b;
+            border-radius: 22px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.65);
+        }
+
+        .form-control-dark, .form-select-dark {
+            background-color: #090d16;
+            border: 1px solid #1e293b;
+            color: #ffffff;
+            border-radius: 12px;
+            padding: 12px 15px;
+        }
+
+        .form-control-dark:focus, .form-select-dark:focus {
+            background-color: #090d16;
+            color: #ffffff;
+            border-color: #0ea5e9;
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.25);
+        }
+
+        .auth-tab-btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            font-weight: 700;
+            padding: 8px 16px;
+            border-radius: 10px;
+            transition: all 0.2s;
+        }
+
+        .auth-tab-btn.active {
+            background: linear-gradient(135deg, #0ea5e9 0%, #10b981 100%);
+            color: #ffffff;
+        }
+
+        .demo-chip {
+            background: rgba(14, 165, 233, 0.15);
+            border: 1px solid rgba(14, 165, 233, 0.35);
+            color: #7dd3fc;
+            border-radius: 8px;
+            padding: 4px 10px;
+            font-size: 0.78rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .demo-chip:hover {
+            background: rgba(14, 165, 233, 0.35);
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero Dark Section -->
+    <section class="hero-section">
+        <div class="hero-grid-bg"></div>
+
+        <div class="container position-relative" style="z-index: 3;">
+            <!-- Top Navigation Bar -->
+            <div class="top-nav">
+                <a href="login.html" class="brand-logo">
+                    <div class="bg-info bg-opacity-25 p-2 rounded-3 text-info">
+                        <i class="fa-solid fa-school-flag fs-4"></i>
+                    </div>
+                    <span>SMART SCHOOL <span class="badge bg-info text-dark">PRO</span></span>
+                </a>
+                <div class="d-flex gap-2">
+                    <button class="btn btn-outline-light rounded-pill px-4 fw-semibold" onclick="openAuthModal('login')">
+                        <i class="fa-solid fa-right-to-bracket me-2"></i> Login
+                    </button>
+                    <button class="btn btn-info text-dark rounded-pill px-4 fw-bold" onclick="openAuthModal('register')">
+                        <i class="fa-solid fa-user-plus me-2"></i> Register
+                    </button>
+                </div>
+            </div>
+
+            <div class="row align-items-center">
+                <!-- Left Text Column -->
+                <div class="col-lg-6 text-center text-lg-start mb-5 mb-lg-0">
+                    <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill mb-3" style="background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.35); color: #6ee7b7; font-size: 0.85rem; font-weight: 600;">
+                        <i class="fa-solid fa-bolt"></i> All-in-One 13-Module Campus ERP
+                    </div>
+
+                    <h1 class="display-4 fw-extrabold mb-2" style="line-height: 1.18;">
+                        Automate Your <span class="underline-wrap">Campus
+                            <svg class="emerald-underline" viewBox="0 0 200 12" fill="none">
+                                <path d="M2 9C60 2 140 2 198 9" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
+                            </svg>
+                        </span>
+                        <br>With Intelligent
+                    </h1>
+                    <h1 class="display-4 gradient-text mb-4">QR & Cloud Control</h1>
+                    
+                    <p class="text-light opacity-75 mb-5" style="font-size: 1.05rem; max-width: 510px; line-height: 1.7;">
+                        Replace manual registers with instant QR gate check-ins, real-time parent SMS alerts, automated fee receipts, exam report cards, and live executive analytics.
+                    </p>
+
+                    <!-- CTA Buttons -->
+                    <div class="d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start align-items-center">
+                        <button type="button" class="cta-pill" onclick="openAuthModal('login')">
+                            <i class="fa-solid fa-shield-halved fs-4"></i>
+                            <div class="text-start">
+                                <div class="fw-bold fs-6">Access ERP Portal</div>
+                                <div class="small opacity-75">Admin • Teacher • Parent</div>
+                            </div>
+                        </button>
+                        <a href="qr-scanner.html" class="btn btn-outline-light rounded-4 px-4 py-3 fw-bold">
+                            <i class="fa-solid fa-qrcode text-info me-2"></i> Live QR Gate
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Custom Floating Smart School ID & Live Hub Graphic -->
+                <div class="col-lg-6 position-relative">
+                    
+                    <!-- Floating Live Badge 1 (Top Right) -->
+                    <div class="float-alert-badge badge-pos-1 d-none d-sm-flex">
+                        <div class="bg-success bg-opacity-25 text-success p-2 rounded-circle">
+                            <i class="fa-solid fa-check-double"></i>
+                        </div>
+                        <div class="text-start">
+                            <div class="fw-bold small text-white">STU101 Checked In</div>
+                            <div class="text-info" style="font-size: 0.72rem;">SMS Sent to Parent • 08:45 AM</div>
+                        </div>
+                    </div>
+
+                    <!-- Floating Live Badge 2 (Bottom Left) -->
+                    <div class="float-alert-badge badge-pos-2 d-none d-sm-flex">
+                        <div class="bg-info bg-opacity-25 text-info p-2 rounded-circle">
+                            <i class="fa-solid fa-chart-pie"></i>
+                        </div>
+                        <div class="text-start">
+                            <div class="fw-bold small text-white">94.8% Present Today</div>
+                            <div class="text-success" style="font-size: 0.72rem;">1,175 / 1,240 Students</div>
+                        </div>
+                    </div>
+
+                    <!-- Floating Live Badge 3 (Bottom Right) -->
+                    <div class="float-alert-badge badge-pos-3 d-none d-sm-flex">
+                        <div class="bg-warning bg-opacity-25 text-warning p-2 rounded-circle">
+                            <i class="fa-solid fa-file-invoice-dollar"></i>
+                        </div>
+                        <div class="text-start">
+                            <div class="fw-bold small text-white">Fee Receipt #892</div>
+                            <div class="text-warning" style="font-size: 0.72rem;">Verified & Emailed</div>
+                        </div>
+                    </div>
+
+                    <!-- Central Original Smart School 3D Card & Radar SVG -->
+                    <div class="visual-stage py-3">
+                        <svg viewBox="0 0 480 390" width="100%" max-width="460" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1e293b"/>
+                                    <stop offset="100%" stop-color="#0f172a"/>
+                                </linearGradient>
+                                <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stop-color="#0ea5e9"/>
+                                    <stop offset="100%" stop-color="#10b981"/>
+                                </linearGradient>
+                            </defs>
+
+                            <!-- Glowing Radar Rings -->
+                            <circle cx="240" cy="195" r="165" fill="none" stroke="#0ea5e9" stroke-width="1.5" stroke-dasharray="8 8" opacity="0.35"/>
+                            <circle cx="240" cy="195" r="125" fill="none" stroke="#10b981" stroke-width="2" opacity="0.25"/>
+                            <circle cx="240" cy="195" r="95" fill="#0ea5e9" opacity="0.06"/>
+
+                            <!-- Back Floating Analytics Window -->
+                            <g transform="translate(55, 45)">
+                                <rect x="0" y="0" width="210" height="135" rx="16" fill="#1e293b" stroke="#334155" stroke-width="2"/>
+                                <circle cx="18" cy="18" r="4" fill="#ef4444"/>
+                                <circle cx="32" cy="18" r="4" fill="#f59e0b"/>
+                                <circle cx="46" cy="18" r="4" fill="#10b981"/>
+                                <!-- Mini Bar Graph -->
+                                <rect x="24" y="80" width="18" height="35" rx="4" fill="#38bdf8"/>
+                                <rect x="54" y="60" width="18" height="55" rx="4" fill="#10b981"/>
+                                <rect x="84" y="48" width="18" height="67" rx="4" fill="#38bdf8"/>
+                                <rect x="114" y="68" width="18" height="47" rx="4" fill="#818cf8"/>
+                                <rect x="144" y="40" width="18" height="75" rx="4" fill="#10b981"/>
+                            </g>
+
+                            <!-- Front Floating Smart Student QR ID Card -->
+                            <g transform="translate(155, 110)">
+                                <rect x="0" y="0" width="250" height="165" rx="20" fill="url(#cardGrad)" stroke="url(#accentGrad)" stroke-width="3"/>
+                                <!-- Top Card Header -->
+                                <rect x="0" y="0" width="250" height="42" rx="18" fill="url(#accentGrad)" opacity="0.9"/>
+                                <text x="20" y="26" fill="#ffffff" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="13">SMART CAMPUS ID</text>
+                                <text x="195" y="26" fill="#0f172a" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="11">PRO</text>
+
+                                <!-- Student Avatar Placeholder -->
+                                <circle cx="52" cy="92" r="26" fill="#334155" stroke="#38bdf8" stroke-width="2"/>
+                                <circle cx="52" cy="85" r="9" fill="#94a3b8"/>
+                                <path d="M36 110 C36 98, 68 98, 68 110" fill="#94a3b8"/>
+
+                                <!-- Student Text Lines -->
+                                <rect x="90" y="72" width="85" height="10" rx="5" fill="#f8fafc"/>
+                                <rect x="90" y="90" width="60" height="8" rx="4" fill="#38bdf8"/>
+                                <rect x="90" y="106" width="75" height="8" rx="4" fill="#64748b"/>
+
+                                <!-- Dynamic QR Code Box -->
+                                <rect x="180" y="65" width="52" height="52" rx="8" fill="#ffffff"/>
+                                <rect x="186" y="71" width="14" height="14" fill="#0f172a"/>
+                                <rect x="212" y="71" width="14" height="14" fill="#0f172a"/>
+                                <rect x="186" y="97" width="14" height="14" fill="#0f172a"/>
+                                <rect x="204" y="89" width="10" height="10" fill="#0ea5e9"/>
+                                <rect x="216" y="100" width="10" height="10" fill="#0f172a"/>
+
+                                <!-- Laser Scan Line -->
+                                <line x1="174" y1="91" x2="238" y2="91" stroke="#10b981" stroke-width="3" stroke-linecap="round"/>
+
+                                <!-- Bottom Status Pill -->
+                                <rect x="20" y="132" width="210" height="20" rx="10" fill="#10b981" fill-opacity="0.2"/>
+                                <text x="68" y="146" fill="#34d399" font-family="Plus Jakarta Sans, sans-serif" font-weight="700" font-size="11">● VERIFIED GATE ACCESS</text>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Smooth Angled Wave -->
+        <div class="wave-divider">
+            <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
+                <path d="M0,20 Q360,100 720,45 T1440,25 L1440,100 L0,100 Z" fill="#f8fafc"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Bottom Light Section (All Modules Showcase) -->
+    <section class="why-section">
+        <div class="container">
+            <h2 class="display-6 fw-extrabold mb-3">
+                Why Schools Choose <span class="underline-wrap">Smart School PRO
+                    <svg class="emerald-underline" viewBox="0 0 200 12" fill="none">
+                        <path d="M2 9C60 2 140 2 198 9" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
+                    </svg>
+                </span>
+            </h2>
+            <p class="text-muted mb-5 mx-auto" style="max-width: 650px;">
+                Built from the ground up for schools and colleges: Student & Teacher records, Dual QR Attendance, Fees, Examinations, and instant Parent Notifications.
+            </p>
+
+            <div class="row g-4 text-start">
+                <div class="col-md-4">
+                    <div class="feature-pill-card">
+                        <div class="fs-2 mb-3">⚡</div>
+                        <h5 class="fw-bold text-dark">Dual QR & Manual Attendance</h5>
+                        <p class="text-muted small mb-0">Instant gate QR scanning for students & staff with real-time Fast2SMS & SMTP email alerts to parents.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-pill-card">
+                        <div class="fs-2 mb-3">💳</div>
+                        <h5 class="fw-bold text-dark">Fees & Examination ERP</h5>
+                        <p class="text-muted small mb-0">Automated fee collection, pending dues tracking, PDF receipts, marks entry, and progress report cards.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-pill-card">
+                        <div class="fs-2 mb-3">🔐</div>
+                        <h5 class="fw-bold text-dark">RBAC Security & Analytics</h5>
+                        <p class="text-muted small mb-0">Role-based portals for Admin, Teachers, and Parents with visual charts and printable QR ID cards.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Full-Featured Auth Modal (Login + Register + SMTP OTP Forgot Password) -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-content-dark p-3">
+                <div class="modal-header border-0 pb-2 d-flex justify-content-between align-items-center">
+                    <div class="d-flex gap-2 bg-dark p-1 rounded-3 border border-secondary">
+                        <button type="button" id="tabLogin" class="auth-tab-btn active" onclick="switchTab('login')">Sign In</button>
+                        <button type="button" id="tabRegister" class="auth-tab-btn" onclick="switchTab('register')">Register</button>
+                        <button type="button" id="tabForgot" class="auth-tab-btn" onclick="switchTab('forgot')">OTP Reset</button>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body pt-3">
+                    <!-- 1. LOGIN FORM -->
+                    <form id="formLogin" onsubmit="handleLogin(event)">
+                        <div class="mb-3">
+                            <label class="form-label small text-secondary fw-semibold">Quick Demo Fill (Click Role):</label>
+                            <div class="d-flex flex-wrap gap-2">
+                                <span class="demo-chip" onclick="fillDemo('admin')">👑 Admin</span>
+                                <span class="demo-chip" onclick="fillDemo('teacher')">👨‍🏫 Teacher</span>
+                                <span class="demo-chip" onclick="fillDemo('parent')">👪 Parent</span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label small text-secondary fw-semibold">Select User Role (RBAC)</label>
+                            <select id="userRole" class="form-select form-select-dark">
+                                <option value="admin">Principal / Super Admin</option>
+                                <option value="teacher">Teacher / Faculty</option>
+                                <option value="parent">Parent / Student Portal</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small text-secondary fw-semibold">Email or Staff/Student ID</label>
+                            <input type="text" id="loginId" class="form-control form-control-dark" value="admin@smartschool.pro" required>
+                        </div>
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between">
+                                <label class="form-label small text-secondary fw-semibold">Password</label>
+                                <a href="javascript:void(0)" onclick="switchTab('forgot')" class="small text-info text-decoration-none">Forgot Password?</a>
+                            </div>
+                            <div class="input-group">
+                                <input type="password" id="loginPass" class="form-control form-control-dark" value="admin123" required>
+                                <button class="btn btn-outline-secondary" type="button" onclick="togglePass('loginPass')"><i class="fa-solid fa-eye"></i></button>
+                            </div>
+                        </div>
+                        <div class="form-check mb-4">
+                            <input class="form-check-input" type="checkbox" id="rememberMe" checked>
+                            <label class="form-check-label small text-secondary" for="rememberMe">Keep session active</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 py-3 fw-bold rounded-3" style="background: linear-gradient(135deg, #0ea5e9 0%, #10b981 100%); border: none;">
+                            <i class="fa-solid fa-lock-open me-2"></i> Sign In to ERP Dashboard
+                        </button>
+                    </form>
+
+                    <!-- 2. REGISTER FORM -->
+                    <form id="formRegister" class="d-none" onsubmit="handleRegister(event)">
+                        <h5 class="fw-bold mb-3">New Staff / Parent Registration</h5>
+                        <div class="mb-3">
+                            <label class="form-label small text-secondary">Full Name</label>
+                            <input type="text" class="form-control form-control-dark" placeholder="e.g. Shanmukha Chintapalli" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small text-secondary">Account Role</label>
+                            <select class="form-select form-select-dark">
+                                <option>Teacher / Faculty</option>
+                                <option>Parent / Student</option>
+                                <option>School Admin</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small text-secondary">Email Address (For SMTP Alerts)</label>
+                            <input type="email" class="form-control form-control-dark" placeholder="name@school.com" required>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label small text-secondary">Create Password</label>
+                            <input type="password" class="form-control form-control-dark" placeholder="••••••••" required>
+                        </div>
+                        <button type="submit" class="btn btn-success w-100 py-3 fw-bold rounded-3">
+                            <i class="fa-solid fa-user-check me-2"></i> Create Account & Verify
+                        </button>
+                    </form>
+
+                    <!-- 3. FORGOT PASSWORD (SMTP OTP) FORM -->
+                    <form id="formForgot" class="d-none" onsubmit="handleOTPReset(event)">
+                        <h5 class="fw-bold mb-2">SMTP Email OTP Recovery</h5>
+                        <p class="small text-secondary mb-3">Enter your registered email to receive a 6-digit verification OTP.</p>
+                        <div class="mb-3">
+                            <label class="form-label small text-secondary">Registered Email</label>
+                            <div class="input-group">
+                                <input type="email" id="otpEmail" class="form-control form-control-dark" placeholder="admin@smartschool.pro" required>
+                                <button type="button" class="btn btn-info fw-bold text-dark" onclick="sendOTP()">Send OTP</button>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small text-secondary">Enter 6-Digit OTP</label>
+                            <input type="text" id="otpCode" class="form-control form-control-dark text-center fw-bold" placeholder="123456" maxlength="6" required>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label small text-secondary">New Password</label>
+                            <input type="password" class="form-control form-control-dark" placeholder="Enter new password" required>
+                        </div>
+                        <button type="submit" class="btn btn-warning w-100 py-3 fw-bold rounded-3 text-dark">
+                            <i class="fa-solid fa-key me-2"></i> Verify OTP & Reset Password
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const authModal = new bootstrap.Modal(document.getElementById('loginModal'));
+
+        function openAuthModal(tab) {
+            switchTab(tab);
+            authModal.show();
+        }
+
+        function switchTab(tab) {
+            document.getElementById('formLogin').classList.add('d-none');
+            document.getElementById('formRegister').classList.add('d-none');
+            document.getElementById('formForgot').classList.add('d-none');
+
+            document.getElementById('tabLogin').classList.remove('active');
+            document.getElementById('tabRegister').classList.remove('active');
+            document.getElementById('tabForgot').classList.remove('active');
+
+            if (tab === 'login') {
+                document.getElementById('formLogin').classList.remove('d-none');
+                document.getElementById('tabLogin').classList.add('active');
+            } else if (tab === 'register') {
+                document.getElementById('formRegister').classList.remove('d-none');
+                document.getElementById('tabRegister').classList.add('active');
+            } else if (tab === 'forgot') {
+                document.getElementById('formForgot').classList.remove('d-none');
+                document.getElementById('tabForgot').classList.add('active');
+            }
+        }
+
+        function fillDemo(role) {
+            document.getElementById('userRole').value = role;
+            if (role === 'admin') {
+                document.getElementById('loginId').value = 'admin@smartschool.pro';
+                document.getElementById('loginPass').value = 'admin123';
+            } else if (role === 'teacher') {
+                document.getElementById('loginId').value = 'teacher01@smartschool.pro';
+                document.getElementById('loginPass').value = 'teach123';
+            } else {
+                document.getElementById('loginId').value = 'STU101';
+                document.getElementById('loginPass').value = 'parent123';
+            }
+        }
+
+        function togglePass(id) {
+            const el = document.getElementById(id);
+            el.type = el.type === 'password' ? 'text' : 'password';
+        }
+
+        function sendOTP() {
+            const email = document.getElementById('otpEmail').value || 'admin@smartschool.pro';
+            alert("📧 SMTP OTP Sent to " + email + "! Use demo OTP: 482910");
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const role = document.getElementById('userRole').value;
+            localStorage.setItem('userRole', role);
+            window.location.href = "index.html";
+        }
+
+        function handleRegister(e) {
+            e.preventDefault();
+            alert("✅ Registration Successful! Please sign in with your credentials.");
+            switchTab('login');
+        }
+
+        function handleOTPReset(e) {
+            e.preventDefault();
+            alert("✅ Password Reset Verified via SMTP OTP! Please sign in.");
+            switchTab('login');
+        }
+    </script>
+</body>
+</html>
