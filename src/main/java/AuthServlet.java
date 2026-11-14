@@ -1,3 +1,4 @@
+import com.school.util.DBConnect;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
